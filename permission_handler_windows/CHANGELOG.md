@@ -1,5 +1,7 @@
 ## 0.2.2
 * Fixed crashing issue on early windows 10 machines (https://github.com/Baseflow/flutter-permission-handler/issues/1388)
+* Fixed constant geo-location usage after app is started that caused lags for users with bad internet and always displayed app in taskbar
+([https://github.com/Baseflow/flutter-permission-handler/issues/1388](https://github.com/Baseflow/flutter-permission-handler/issues/1394))
 
 ## 0.2.1
 
