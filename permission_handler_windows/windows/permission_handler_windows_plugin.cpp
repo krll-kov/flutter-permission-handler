@@ -65,7 +65,6 @@ class PermissionHandlerWindowsPlugin : public Plugin {
   winrt::fire_and_forget IsBluetoothServiceEnabled(std::unique_ptr<MethodResult<>> result);
 
   winrt::Windows::Devices::Geolocation::Geolocator geolocator;
-  winrt::Windows::Devices::Geolocation::Geolocator::PositionChanged_revoker m_positionChangedRevoker;
 };
 
 // static
@@ -87,14 +86,17 @@ void PermissionHandlerWindowsPlugin::RegisterWithRegistrar(
 }
 
 PermissionHandlerWindowsPlugin::PermissionHandlerWindowsPlugin(){
-  try {
-    m_positionChangedRevoker = geolocator.PositionChanged(winrt::auto_revoke,
-      [this](Geolocator const& geolocator, PositionChangedEventArgs e)
-      {
-      });
-  } catch (...) {
-    /* Do nothing */
-  }
+// Access should not be requested on app start before plugin is even used, this causes ping spikes
+// and other issues
+//
+//  try {
+//    m_positionChangedRevoker = geolocator.PositionChanged(winrt::auto_revoke,
+//      [this](Geolocator const& geolocator, PositionChangedEventArgs e)
+//      {
+//      });
+//  } catch (...) {
+//    /* Do nothing */
+//  }
 }
 
 PermissionHandlerWindowsPlugin::~PermissionHandlerWindowsPlugin() = default;
